@@ -22,11 +22,11 @@ A simple and efficient Raycast extension to generate realistic fake data includi
 
 ### Main Interface
 
-![Main Interface](assets/screenshots/main-interface.png)
+![Main Interface](assets/screenshots/mainPage.png)
 
 ### Edit Date of Birth
 
-![Edit Date of Birth](assets/screenshots/edit-dob.png)
+![Edit Date of Birth](assets/screenshots/editPage.png)
 
 ---
 
