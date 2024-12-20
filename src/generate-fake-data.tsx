@@ -3,24 +3,24 @@ import { List, ActionPanel, Action, Form, showToast, Toast } from "@raycast/api"
 import { generateRandomDOB, generateRandomSSN, getRandomBankDetails, getRandomName } from "./Utils/generateUtils";
 
 export default function Command() {
-  const [dob, setDob] = useState<string | undefined>(); // Date de naissance
-  const [isMinor, setIsMinor] = useState(false); // État pour mineur/majeur
-  const [name, setName] = useState(getRandomName()); // Nom et genre
-  const [ssn, setSsn] = useState<string>(generateRandomSSN(undefined, name.gender, isMinor)); // SSN généré
-  const [bankDetails, setBankDetails] = useState(getRandomBankDetails()); // IBAN et BIC
+  const [dob, setDob] = useState<string | undefined>(); // Date of birth
+  const [isMinor, setIsMinor] = useState(false); // State for minor/adult
+  const [name, setName] = useState(getRandomName()); // Name and gender
+  const [ssn, setSsn] = useState<string>(generateRandomSSN(undefined, name.gender, isMinor)); // Generated SSN
+  const [bankDetails, setBankDetails] = useState(getRandomBankDetails()); // IBAN and BIC
   const [isEditing, setIsEditing] = useState(false);
 
-  // Fonction pour régénérer les données
+  // Function to regenerate data
   const regenerateData = (newDob?: string) => {
     const finalDob = newDob || dob || generateRandomDOB(isMinor);
     setDob(finalDob);
     setName(getRandomName());
     setSsn(generateRandomSSN(finalDob, name.gender, isMinor));
     setBankDetails(getRandomBankDetails());
-    showToast({ style: Toast.Style.Success, title: "Données régénérées !" });
+    showToast({ style: Toast.Style.Success, title: "Data regenerated!" });
   };
 
-  // Si l'utilisateur est en mode édition, afficher le formulaire
+  // If the user is in edit mode, display the form
   if (isEditing) {
     return (
       <Form
@@ -29,8 +29,8 @@ export default function Command() {
             <Action
               title="Valider"
               onAction={() => {
-                regenerateData(); // Utilise la date de naissance mise à jour
-                setIsEditing(false); // Retour à l'écran principal
+                regenerateData(); // Use the updated date of birth
+                setIsEditing(false); // Return to the main screen
               }}
             />
             <Action title="Annuler" onAction={() => setIsEditing(false)} />
@@ -43,7 +43,7 @@ export default function Command() {
           value={isMinor}
           onChange={(newValue) => {
             setIsMinor(newValue);
-            setDob(generateRandomDOB(newValue)); // Génère une date automatiquement
+            setDob(generateRandomDOB(newValue)); // Automatically generate a date
           }}
         />
         <Form.TextField
@@ -51,14 +51,13 @@ export default function Command() {
           title="Date de naissance"
           placeholder="DD/MM/YYYY"
           value={dob}
-          onChange={(newDob) => setDob(newDob)} // Permet de renseigner manuellement une date
+          onChange={(newDob) => setDob(newDob)} // Allow manual date entry
         />
-        <Form.Description text={`Date actuelle : ${dob || "Non définie"}`} />
       </Form>
     );
   }
 
-  // Affichage principal
+  // Main display
   return (
     <List>
       <List.Section title="Informations Générées">

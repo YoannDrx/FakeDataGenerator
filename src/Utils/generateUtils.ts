@@ -2,9 +2,9 @@ import { bankDetails } from "../data/bank";
 import { lastNamesDatabase } from "../data/lastNames";
 import { namesDatabase } from "../data/names";
 
-// Génération aléatoire de noms et prénoms avec genre
+// Random generation of names with gender
 export function getRandomName(): { name: string; gender: "male" | "female" } {
-  const gender = Math.random() < 0.5 ? "male" : "female"; // Probabilité égale pour homme/femme
+  const gender = Math.random() < 0.5 ? "male" : "female"; // Equal probability for male/female
   const firstNames = namesDatabase[gender];
 
   const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
@@ -12,7 +12,7 @@ export function getRandomName(): { name: string; gender: "male" | "female" } {
   return { name: `${firstName} ${lastName}`, gender };
 }
 
-// Générer une date de naissance aléatoire en fonction de majeur/mineur
+// Generate a random date of birth based on minor/adult
 export function generateRandomDOB(isMinor: boolean): string {
   const currentYear = new Date().getFullYear();
   const minYear = isMinor ? currentYear - 18 : currentYear - 99;
@@ -25,7 +25,7 @@ export function generateRandomDOB(isMinor: boolean): string {
   return `${day.toString().padStart(2, "0")}/${month.toString().padStart(2, "0")}/${year}`;
 }
 
-// Génération d'un SSN aléatoire basé sur le genre
+// Generate a random SSN based on gender
 export function generateRandomSSN(dob?: string, gender?: "male" | "female", isMinor?: boolean): string {
   const currentYear = new Date().getFullYear();
   let year: string | undefined;
@@ -45,9 +45,9 @@ export function generateRandomSSN(dob?: string, gender?: "male" | "female", isMi
   }
 
   if (!year || !month) {
-    // Si aucune date n'est donnée, ou si l'analyse échoue, générer une date aléatoire
-    const maxYear = isMinor ? currentYear : currentYear - 18; // Mineur : cette année, sinon 18 ans
-    const minYear = isMinor ? currentYear - 18 : maxYear - 81; // Mineur : max 18 ans, sinon 99 ans
+    // If no date is given, or if parsing fails, generate a random date
+    const maxYear = isMinor ? currentYear : currentYear - 18; // Minor: this year, otherwise 18 years
+    const minYear = isMinor ? currentYear - 18 : maxYear - 81; // Minor: max 18 years, otherwise 99 years
     const randomYear = Math.floor(Math.random() * (maxYear - minYear + 1)) + minYear;
 
     year = (randomYear % 100).toString().padStart(2, "0");
@@ -66,14 +66,14 @@ export function generateRandomSSN(dob?: string, gender?: "male" | "female", isMi
     .toString()
     .padStart(3, "0");
 
-  const prefix = gender === "male" ? "1" : "2"; // Préfixe basé sur le genre
+  const prefix = gender === "male" ? "1" : "2"; // Prefix based on gender
   const baseSSN = `${prefix}${year}${month}${department}${commune}${order}`;
   const key = (97 - (parseInt(baseSSN, 10) % 97)).toString().padStart(2, "0");
 
   return `${baseSSN}${key}`;
 }
 
-// Génération aléatoire d'IBAN et de BIC
+// Random generation of IBAN and BIC
 export function getRandomBankDetails() {
   const randomIndex = Math.floor(Math.random() * bankDetails.length);
   return bankDetails[randomIndex];
