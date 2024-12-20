@@ -4,7 +4,7 @@
   "title": "Fake Data Generator",
   "description": "This extension generates realistic fake data for testing purposes, including French social security numbers (based on a provided birth date) and IBANs. Ideal for developers and testers needing valid-looking data for their projects.",
   "icon": "extension-icon.png",
-  "author": "Jaji",
+  "author": "YoannDrx",
   "categories": [
     "Data",
     "Productivity",
@@ -15,7 +15,7 @@
     {
       "name": "generate-fake-data",
       "title": "Generate fake data",
-      "description": "",
+      "description": "Fake data generator",
       "mode": "view"
     }
   ],
